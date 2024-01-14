@@ -1,3 +1,5 @@
+import { Login_Failure, Login_Request, Login_Success, Logout_Success } from "../actionTypes";
+
 const init = {
     isLoading:false,
     isError:false,
@@ -15,7 +17,7 @@ export const reducer = (state=init,{type,payload}) => {
         case Login_Success:{
             return {...state,isLoading:false,isAuth:true,token:payload.token,user:payload.user}
         }
-        case Login_Error:{
+        case Login_Failure:{
             return {...state,isError:true}
         }
         case Logout_Success:{
