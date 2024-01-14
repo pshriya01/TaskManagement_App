@@ -3,7 +3,8 @@ const { UserModel } = require("../Models/UserModel");
 require('dotenv').config()
 const saltRounds = parseInt(process.env.saltrounds) || 10;
 const bcrypt = require('bcrypt')
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const { BlacklistModel } = require("../Models/Blacklist");
 const userRouter = express.Router();
 
 userRouter.post("/register", async (req, res) => {
@@ -58,7 +59,7 @@ userRouter.post("/login",async (req, res) => {
                 const passwordMatch = await bcrypt.compare(password, user.password);
     
                 if (passwordMatch) {
-                    const token = jwt.sign({ user }, process.env.SecretKey,{ expiresIn: 5*60 });
+                    const token = jwt.sign({userId:user._id,username:user.username}, process.env.SecretKey,{ expiresIn: 5*60 });
                     res.status(200).send({ message: "Login successful!", token });
                 } else {
                     res.status(200).send({ message: "Incorrect password!" });
@@ -103,6 +104,23 @@ userRouter.patch('/update/:userID', async (req, res) => {
     }
   });
   
+
+
+userRouter.get("/logout", async (req, res) => {
+  const token = req.headers.authorization;
+  
+  try {
+      if (token) {
+          // Use findOneAndUpdate to ensure only one document is updated
+          await BlacklistModel.findOneAndUpdate({}, { $addToSet: { blacklist: token } }, { upsert: true });
+          res.status(200).json({ msg: "User has been logged out" });
+      } else {
+          res.status(400).json({ error: "Token is not coming" });
+      }
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
 
 module.exports = {
   userRouter,

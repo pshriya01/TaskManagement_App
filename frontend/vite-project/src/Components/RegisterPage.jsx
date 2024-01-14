@@ -1,12 +1,42 @@
-import React from "react";
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from 'react-router-dom'
+import { register } from "../Redux/authReducer/action";
 
 const RegisterPage = () => {
+    const [name,setName] = useState("")
+    const [username,setUsername] = useState("")
+    const [email,setEmail] = useState("")
+    const [password,setPassword] = useState("")
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const handleRegister = (e)=>{
+        e.preventDefault()
+        console.log(name,username,email,password)
+        let user= {
+            name,username,email,password
+        }
+       
+        if(name && username && email && password){
+            dispatch(register(user)).then((res)=>{
+                if(res.message==="User created successfully!"){
+                    alert(res.message)
+                    navigate('/login')
+                }else{
+                    alert(res.message)
+                    return
+                }
+            })
+        }else{
+            alert("Input fields are required!")
+        }
+    }
   return (
     <div className="min-h-screen flex items-center justify-center">  
       <div className="bg-custom-pink pt-6 pl-8 pr-8 pb-10 rounded-t-custom-border-radius shadow-md w-full sm:w-96">
         <h2 className="text-2xl text-custom-green font-bold mb-8 ">Register</h2>
-        <form>
+        <form onSubmit={(e)=>handleRegister(e)}>
         <div className="mb-4">
             <label
               htmlFor="name"
@@ -20,7 +50,8 @@ const RegisterPage = () => {
               name="name"
               className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-custom-green"
               placeholder="Enter your Name"
-              isrequired:true
+              required
+              onChange={(e)=>setName(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -35,8 +66,9 @@ const RegisterPage = () => {
               id="username"
               name="username"
               className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-custom-green"
-              placeholder="Enter your username e.g. ram123"
-              isrequired:true
+              placeholder="Enter your username e.g. john123"
+              required
+              onChange={(e)=>setUsername(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -52,7 +84,8 @@ const RegisterPage = () => {
               name="email"
               className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-custom-green"
               placeholder="Enter your email"
-              isrequired:true
+              required
+              onChange={(e)=>setEmail(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -68,7 +101,8 @@ const RegisterPage = () => {
               name="password"
               className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-custom-green"
               placeholder="Enter your password"
-              isrequired:true
+              required
+              onChange={(e)=>setPassword(e.target.value)}
             />
           </div>
           <button

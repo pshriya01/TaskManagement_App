@@ -4,9 +4,11 @@ const app = express()
 const Port = process.env.PORT || 8000
 const connection = require('./Config/db')
 const { userRouter } = require("./Routers/UserRouter")
+const { taskRoutes } = require("./Routers/TaskRouter")
 
 app.use(express.json())
 app.use("/users",userRouter)
+app.use("/tasks",taskRoutes)
 
 
 app.get("/",(req,res)=>{
@@ -18,7 +20,7 @@ app.listen(Port,async()=>{
     try{
         await connection
         console.log("Server is connected to DB")
-        console.log(`App is listening to the port`)
+        console.log(`App is listening to the port ${Port}`)
     }catch(error){
         console.log(error)
     } 
