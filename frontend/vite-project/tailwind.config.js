@@ -13,14 +13,14 @@ export default {
       },
       textColor: {
         'custom-pink': '#f8aba8',
-        'custom-blue': '#c8d8e4',
+        'custom-darkpink': '#f18382',
         'custom-green':'#6c877c'
       },
       boxShadow: {
         'my-shadow': '#2b6777 0px 5px 15px;',
       },
       borderColor:{
-        'custom-teal': "#2b6777",
+        'custom-darkpink': '#f18382',
         'custom-blue': '#c8d8e4',
         'custom-green': '#52ab98',
       },

@@ -11,7 +11,7 @@ taskRoutes.post("/create",async(req,res)=>{
     try{
         const task=new TaskModel(payload);
         await task.save();
-        res.status(200).send({message:"new task has been added "})
+        res.status(200).send({message:"new task has been added ",task})
     }catch(err){
         res.status(400).send({"error":err})
     } 
@@ -40,7 +40,7 @@ taskRoutes.patch("/update/:id", async (req, res) => {
         await TaskModel.findByIdAndUpdate(id, req.body);
         const updatedTask = await TaskModel.findById(id);
 
-        res.status(200).send({ message: updatedTask });
+        res.status(200).send({ message: "Task Updated Successfully!",updatedTask });
     } catch (err) {
         res.status(400).send({ error: err.message });
     }
@@ -55,7 +55,7 @@ taskRoutes.delete("/delete/:id",auth,async(req,res)=>{
             res.status(400).send({"error":"you are not authorized"})
         }else{
             await TaskModel.findByIdAndDelete({_id:id})
-            res.status(200).send({message:"Task Deleted"})
+            res.status(200).send({message:"Task Deleted",task})
         }
 
     }catch(err){

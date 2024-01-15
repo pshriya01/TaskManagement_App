@@ -9,7 +9,7 @@ export const login = (user)=> async (dispatch) => {
     dispatch({type:Login_Request})
     try {
       const res = await axios.post(`${baseURL}/users/login`,user);
-      console.log(res.data)
+      // console.log(res.data)
       dispatch({type:Login_Success, payload:res?.data})
 
       return res?.data;

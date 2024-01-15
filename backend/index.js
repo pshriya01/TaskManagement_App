@@ -3,10 +3,12 @@ require("dotenv").config()
 const app = express()
 const Port = process.env.PORT || 8000
 const connection = require('./Config/db')
+const cors = require("cors")
 const { userRouter } = require("./Routers/UserRouter")
 const { taskRoutes } = require("./Routers/TaskRouter")
 
 app.use(express.json())
+app.use(cors())
 app.use("/users",userRouter)
 app.use("/tasks",taskRoutes)
 

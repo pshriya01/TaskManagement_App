@@ -19,6 +19,7 @@ const LoginPage = () => {
       if(user && password){
         dispatch(login(user)).then((res)=>{
           if(res.message==="Login successful!"){
+           
             alert(res.message)
             navigate('/tasks')
           }else{
