@@ -64,9 +64,10 @@ const Navbar = () => {
             </div>
             {isOpen && (
                 <div className="md:hidden bg-custom-green p-4">
-                    <button className="block text-white mb-2">My Tasks</button>
+                    <button onClick={()=>navigate('/tasks')} className="block text-white mb-2">My Tasks</button>
                     <button className="block text-white mb-2">Login/Logout</button>
-                    <button className="block text-white">Profile</button>
+                    {isAuth?<button onClick={handleLogout} className="block text-white mb-2">Logout</button>:<button onClick={()=>navigate('/login')} className="block text-white mb-2">Login</button>}
+                    <button onClick={()=>navigate('/profile')} className="block text-white">Profile</button>
                 </div>
             )}
         </nav>
