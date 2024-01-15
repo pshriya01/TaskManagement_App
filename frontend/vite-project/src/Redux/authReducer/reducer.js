@@ -23,6 +23,7 @@ export const reducer = (state=init,{type,payload}) => {
         case Logout_Success:{
             return {...state,isAuth:false,token:null,user:{}}
         }
+
         default:{
             return state
         }

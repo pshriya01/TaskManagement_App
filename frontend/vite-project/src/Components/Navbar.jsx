@@ -1,14 +1,31 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { logout } from '../Redux/authReducer/action';
 
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate()
+    const isAuth = useSelector((store)=>store.authReducer.isAuth)
+    const token = useSelector((store)=>store.authReducer.token)
+    const dispatch = useDispatch()
 
     const toggleNavbar = () => {
         setIsOpen(!isOpen);
     };
+    const handleLogout= ()=>{
+        try{
+            dispatch(logout(token))
+            .then((res)=>{
+                alert(res.msg)
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+        
+    }
 
     return (
         <nav className="bg-custom-green px-6 py-3 ">
@@ -19,7 +36,10 @@ const Navbar = () => {
 
                 <div className="hidden md:flex items-center space-x-4">
                     <button onClick={()=>navigate('/tasks')} className="text-custom-green bg-white px-4 py-1 rounded-full text-lg hover:text-custom-pink">My Tasks</button>
+                    {isAuth?<button onClick={handleLogout} className="text-custom-green bg-white px-4 py-1 rounded-full text-lg hover:text-custom-pink">Logout</button>:
                     <button onClick={()=>navigate('/login')} className="text-custom-green bg-white px-4 py-1 rounded-full text-lg hover:text-custom-pink">Login</button>
+                    }
+                    
                     <button onClick={()=>navigate('/profile')} className="text-custom-green bg-white px-4 py-1 rounded-full text-lg hover:text-custom-pink">Profile</button>
                 </div>
 

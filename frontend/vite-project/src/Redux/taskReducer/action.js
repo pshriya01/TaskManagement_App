@@ -1,7 +1,7 @@
 import axios from "axios"
 import { Add_Task, Delete_Task, Edit_Task, Task_Failure, Task_Request, Task_Success } from "../actionTypes"
 
-const baseURL = "http://localhost:8080";
+const baseURL = "https://eager-red-chick.cyclic.app";
 
 export const getTasks = (token)=>async(dispatch)=>{
   try{
@@ -30,7 +30,7 @@ export const adaddTask = (task,token)=>async(dispatch)=>{
     try{
         dispatch({type:Task_Request})
         try{
-            const res = await axios.post('http://localhost:8080/tasks/create', task, {
+            const res = await axios.post(`${baseURL}/tasks/create`, task, {
                 headers: {
                   'Authorization': token
                 }
@@ -54,7 +54,7 @@ export const deleteTask= (id,token)=>async(dispatch)=>{
    try{
     dispatch({type:Task_Request})
     try{
-      const res = await axios.delete(`http://localhost:8080/tasks/delete/${id}`, {
+      const res = await axios.delete(`${baseURL}/tasks/delete/${id}`, {
         headers: {
           'Authorization': token
         }
@@ -77,7 +77,7 @@ export const editTask = (task,token,id) => async(dispatch)=>{
     dispatch({type:Task_Request})
     try{
       console.log(id,"id")
-      const res = await axios.patch(`http://localhost:8080/tasks/update/${id}`,task, {
+      const res = await axios.patch(`${baseURL}/tasks/update/${id}`,task, {
         headers: {
           'Authorization': token
         }

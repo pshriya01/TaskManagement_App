@@ -45,17 +45,6 @@ const DisplayTasksPage = () => {
 
   }
 
-  // const handleEdit = (id)=>{
-  //   try{
-  //     dispatch(editTask(id,token))
-  //     .then((res)=>{
-  //       alert(res.message)
-  //     })
-  //   }
-  //   catch(error){
-  //     console.log(error)
-  //   }
-  // }
 
 useEffect(()=>{
   dispatch(getTasks(token))

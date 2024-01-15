@@ -1,7 +1,7 @@
 import axios from "axios";
-import { Login_Failure, Login_Request, Login_Success } from "../actionTypes";
+import { Login_Failure, Login_Request, Login_Success, Logout_Success } from "../actionTypes";
 
-const baseURL = "http://localhost:8080";
+const baseURL = "https://eager-red-chick.cyclic.app";
 
 //Login
 export const login = (user)=> async (dispatch) => {
@@ -35,4 +35,21 @@ export const register = (user) => async(dispatch) =>{
     catch(error){
         console.log(error)
     }
+}
+
+export const logout = (token)=> async(dispatch)=>{
+  try{
+     const res = await axios.get(`${baseURL}/users/logout`,{
+      headers: {
+        Authorization: token,
+        }
+     })
+     console.log(res.data)
+     dispatch({type:Logout_Success})
+     return res.data
+
+  }
+  catch (error) {
+    console.log(error)
+  }
 }
