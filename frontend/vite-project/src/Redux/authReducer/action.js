@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Login_Failure, Login_Request, Login_Success, Logout_Success } from "../actionTypes";
+import { Edit_Profile, Login_Failure, Login_Request, Login_Success, Logout_Success } from "../actionTypes";
 
 const baseURL = "https://eager-red-chick.cyclic.app";
 
@@ -9,7 +9,7 @@ export const login = (user)=> async (dispatch) => {
     dispatch({type:Login_Request})
     try {
       const res = await axios.post(`${baseURL}/users/login`,user);
-      // console.log(res.data)
+      
       dispatch({type:Login_Success, payload:res?.data})
 
       return res?.data;
@@ -48,6 +48,22 @@ export const logout = (token)=> async(dispatch)=>{
      dispatch({type:Logout_Success})
      return res.data
 
+  }
+  catch (error) {
+    console.log(error)
+  }
+}
+
+export const editUser = (user,token,id)=> async(dispatch)=>{
+  console.log(user,"user")
+  try{
+    const res = await axios.patch(`http://localhost:8080/users/update/${id}`,user,{
+      headers: {
+        Authorization: token,
+        }
+     })
+     dispatch({type:Edit_Profile,payload:res.data.user})
+     return res.data
   }
   catch (error) {
     console.log(error)
