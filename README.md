@@ -1,4 +1,4 @@
-# Login-Singup Assingment
+# Task Management App
 
 Empower your productivity with our intuitive task management app, facilitating seamless creation, updating, and deletion of tasks for efficient organization. 
 
