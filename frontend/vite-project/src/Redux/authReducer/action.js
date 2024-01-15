@@ -57,7 +57,7 @@ export const logout = (token)=> async(dispatch)=>{
 export const editUser = (user,token,id)=> async(dispatch)=>{
   console.log(user,"user")
   try{
-    const res = await axios.patch(`http://localhost:8080/users/update/${id}`,user,{
+    const res = await axios.patch(`${baseURL}/users/update/${id}`,user,{
       headers: {
         Authorization: token,
         }

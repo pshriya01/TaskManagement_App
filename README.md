@@ -37,7 +37,9 @@ Empower your productivity with our intuitive task management app, facilitating s
 - Note:
  Fully responsive website for different screen sizes: mobile, tablet, laptop
 
-
+## Dummy data :
+  email: jane@mail.com
+  password: jane
 
 ## TechStack used
 
